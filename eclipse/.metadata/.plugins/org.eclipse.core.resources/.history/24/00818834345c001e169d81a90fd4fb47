@@ -1,0 +1,5 @@
+package epichacks.events;
+
+public class Event {
+
+}

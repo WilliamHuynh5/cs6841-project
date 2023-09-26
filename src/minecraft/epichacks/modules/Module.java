@@ -1,5 +1,8 @@
 package epichacks.modules;
 
+import epichacks.events.Event;
+import net.minecraft.client.Minecraft;
+
 // Superclass of what all hacks will build off
 public class Module {
 	// Name of the hack
@@ -9,6 +12,7 @@ public class Module {
 	// They key (on a keyboard) the activates the hack
 	public int hackKeycode;
 	public Category hackCategory;
+	public Minecraft mc = Minecraft.getMinecraft();
 	
 	// Categories of Hacks
 	public enum Category {
@@ -22,6 +26,10 @@ public class Module {
 		this.hackName = name;
 		this.hackKeycode = keycode;
 		this.hackCategory = category;
+	}
+	
+	public void onEvent (Event e) {
+		
 	}
 	
 	public boolean isEnabled() {

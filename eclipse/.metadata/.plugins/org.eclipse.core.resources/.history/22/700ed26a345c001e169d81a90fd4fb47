@@ -1,0 +1,8 @@
+package epichacks.events;
+
+public class Event<T> {
+	public boolean cancelled;
+	public EventType type;
+	public EventDirection direction;
+	
+}
