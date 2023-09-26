@@ -1,0 +1,18 @@
+package epichacks;
+
+public class Client {
+	
+	public static String name = "Ace Mikunda";
+	public static String version = "1.8";
+	
+	public static void startup() {
+		System.out.println(name);
+		System.out.println(version);
+	}
+
+	public static void startup() {
+		System.out.println(name);
+		System.out.println(version);
+	}
+	
+}

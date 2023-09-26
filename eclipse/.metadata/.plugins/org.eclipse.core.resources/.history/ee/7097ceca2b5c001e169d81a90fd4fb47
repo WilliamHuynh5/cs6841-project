@@ -1,0 +1,8 @@
+package epichacks;
+
+public class Client {
+	
+	public static String name = "Ace Mikunda";
+	public static String version = "1.8";
+	
+}

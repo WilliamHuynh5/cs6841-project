@@ -1,0 +1,20 @@
+package epichacks.modules;
+
+// Superclass of what all hacks will build off
+public class Module {
+	// Name of the hack
+	public String hackName;
+	// Whether the hack is active or not
+	public boolean hackToggle;
+	// They key (on a keyboard) the activates the hack
+	public int hackKeycode;
+	
+	public Module(String name, int keycode) {
+		this.hackName = name;
+		this.hackKeycode = keycode;
+	}
+	
+	public Module isEnabled() {
+		return hackToggle;
+	}
+}
