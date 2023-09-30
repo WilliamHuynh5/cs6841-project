@@ -1,39 +1,49 @@
 package epichacks;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
 import epichacks.modules.movenment.Fly;
 import epichacks.events.Event;
 
 
+/**
+ * The {@code Client} class represents a client application for managing modules and handling events.
+ * It uses a {@link java.util.concurrent.ConcurrentHashMap} to store modules with integer keys.
+ */
 public class Client {
-	
-	public static CopyOnWriteArrayList<Module> modules = new CopyOnWriteArrayList<Module>();
-	
-	public static String name = "Ace Mikunda";
-	public static String version = "1.8";
 
-	public static void startup() {
-		System.out.println(name);
-		System.out.println(version);
-		modules.add(new Fly());
-	}
-	
-	public static void onEvent (Event e) {
-		for (Module m : modules) {
-			if (!m.hackToggle) {
-				continue;
-			}
-			m.onEvent(e);
-		}
-	}
-	
-	public static void keyPress(int key) {
-		for (Module m : modules) {
-			if (m.getKey() == key) {
-				m.toggle();
-			}
-		}
-	}
-	
+    /**
+     * A concurrent map that stores modules with integer keys.
+     */
+    public static ConcurrentHashMap<Integer, Module> modules = new ConcurrentHashMap<Integer, Module>();
+
+    /**
+     * Initializes the client by adding a {@link epichacks.modules.movenment.Fly} module to the modules map.
+     */
+    public static void startup() {
+        Module flyModule = new Fly();
+        modules.put(flyModule.getKey(), flyModule);
+    }
+
+    /**
+     * Handles an event by triggering the {@code onEvent} method of enabled modules.
+     *
+     * @param e The event to be handled.
+     */
+    public static void onEvent(Event e) {
+        modules.values().stream()
+                .filter(Module::isEnabled)
+                .forEach(module -> module.onEvent(e));
+    }
+
+    /**
+     * Toggles the module associated with the specified key.
+     *
+     * @param key The key associated with the module to be toggled.
+     */
+    public static void keyPress(int key) {
+        if (modules.containsKey(key)) {
+            modules.get(key).toggle();
+        }
+    }
 }

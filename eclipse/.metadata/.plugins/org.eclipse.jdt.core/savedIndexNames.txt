@@ -7,7 +7,6 @@ INDEX VERSION 1.134+C:\Users\brick\Desktop\cs6841\cs6831-project\eclipse\.metada
 236109987.index
 1704041375.index
 876364454.index
-137624701.index
 4232743278.index
 706438825.index
 3204140888.index

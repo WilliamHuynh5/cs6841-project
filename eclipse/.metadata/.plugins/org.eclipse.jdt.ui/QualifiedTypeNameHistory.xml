@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.concurrent.CopyOnWriteArrayList"/>
+    <fullyQualifiedTypeName name="epichacks.modules.Module"/>
+    <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
+    <fullyQualifiedTypeName name="epichacks.modules.movenment.Fly"/>
+    <fullyQualifiedTypeName name="epichacks.Client"/>
+    <fullyQualifiedTypeName name="epichacks.events.EventType"/>
+    <fullyQualifiedTypeName name="epichacks.events.Event"/>
+    <fullyQualifiedTypeName name="epichacks.events.listeners.EventUpdate"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+</qualifiedTypeNameHistroy>

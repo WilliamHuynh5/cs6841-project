@@ -1,0 +1,35 @@
+package epichacks;
+
+import java.util.concurrent.ConcurrentHashMap;
+import epichacks.modules.Module;
+import epichacks.modules.movenment.Fly;
+import epichacks.events.Event;
+
+
+public class Client {
+	
+	public static ConcurrentHashMap<Integer, Module> modules = new ConcurrentHashMap<Integer, Module>();
+
+	public static void startup() {
+		Module newFly = new Fly();
+		modules.put(newFly.getKey(), newFly;
+	}
+	
+	public static void onEvent (Event e) {
+		for (Module m : modules) {
+			if (!m.hackToggle) {
+				continue;
+			}
+			m.onEvent(e);
+		}
+	}
+	
+	public static void keyPress(int key) {
+		for (Module m : modules) {
+			if (m.getKey() == key) {
+				m.toggle();
+			}
+		}
+	}
+	
+}
