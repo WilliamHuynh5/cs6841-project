@@ -1,5 +1,8 @@
 package net.minecraft.client.entity;
 
+import epichacks.Client;
+import epichacks.events.EventType;
+import epichacks.events.listeners.EventUpdate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -150,6 +153,10 @@ public class EntityPlayerSP extends AbstractClientPlayer
 
     public void func_175161_p()
     {
+    	EventUpdate e = new EventUpdate();
+    	e.setType(EventType.PRE);
+    	Client.onEvent(e);
+    	
         boolean var1 = this.isSprinting();
 
         if (var1 != this.field_175171_bO)
