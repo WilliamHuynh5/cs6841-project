@@ -3,10 +3,10 @@
 !/src/
 
 # Ignore specific folders
-/conf/
-/docs/
-/eclipse/
-/jars/
-/logs/
-/runtime/
-/temp/
+conf/
+docs/
+eclipse/
+jars/
+logs/
+runtime/
+temp/
