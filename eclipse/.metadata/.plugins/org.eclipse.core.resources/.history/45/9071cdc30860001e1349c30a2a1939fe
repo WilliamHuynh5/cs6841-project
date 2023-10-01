@@ -1,13 +1,3 @@
-package epichacks.ui;
-
-import java.util.Map;
-import java.util.Map.Entry;
-
-import epichacks.Client;
-import epichacks.modules.Module;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
-
 /**
  * The {@code HUD} class represents a heads-up display (HUD) for displaying information and status of various modules.
  * It is responsible for rendering module names on the screen when those modules are enabled.
