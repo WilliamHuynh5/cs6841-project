@@ -1,6 +1,12 @@
-# Ignore everything in the repository
-/*
-
-# Except for the 'src' directory and .gitignore
+# Ignore all folders in the root directory except 'src'
+*
 !/src/
-!.gitignore
+
+# Ignore specific folders
+conf/
+docs/
+eclipse/
+jars/
+logs/
+runtime/
+temp/
