@@ -1,0 +1,32 @@
+package epichacks;
+
+import java.util.concurrent.ConcurrentHashMap;
+import epichacks.modules.Module;
+import epichacks.modules.movenment.Fly;
+import epichacks.events.Event;
+
+
+public class Client {
+	
+	public static ConcurrentHashMap<Integer, Module> modules = new ConcurrentHashMap<Integer, Module>();
+
+	public static void startup() {
+		Module flyModule = new Fly();
+		modules.put(flyModule.getKey(), flyModule);
+	}
+	
+	public static void onEvent (Event e) {
+        modules.values().stream()
+        .filter(Module::isEnableed)
+        .forEach(module -> module.onEvent(e));
+	}
+	
+	public static void keyPress(int key) {
+		for (Module m : modules) {
+			if (m.getKey() == key) {
+				m.toggle();
+			}
+		}
+	}
+	
+}

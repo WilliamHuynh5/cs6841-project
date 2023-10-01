@@ -1,0 +1,6 @@
+package epichacks.modules.movenment;
+import epichacks.modules.Module;
+
+public class Fly extends Module {
+	
+}

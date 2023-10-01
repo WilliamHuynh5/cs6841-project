@@ -1,0 +1,5 @@
+package epichacks.events.listeners;
+
+public class EventUpdate {
+
+}
