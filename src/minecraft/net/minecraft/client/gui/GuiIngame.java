@@ -3,6 +3,9 @@ package net.minecraft.client.gui;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
+import epichacks.Client;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -342,6 +345,8 @@ public class GuiIngame extends Gui
         {
             this.overlayPlayerList.func_175246_a(false);
         }
+        
+        Client.hud.draw();
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();

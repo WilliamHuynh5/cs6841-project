@@ -1,0 +1,29 @@
+package epichacks.ui;
+
+import java.util.Map;
+import java.util.Map.Entry;
+
+import epichacks.Client;
+import epichacks.modules.Module;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+
+public class HUD {
+	
+	public Minecraft minecraft = Minecraft.getMinecraft();
+	
+	public void draw() {
+		ScaledResolution scaledResolutiojn = new ScaledResolution(minecraft, minecraft.displayWidth, minecraft.displayHeight);
+		minecraft.fontRendererObj.drawString(Client.name + " v" + Client.version, 4, 4, -1);
+		
+		for (Entry<Integer, Module> entry: Client.modules.entrySet()) {
+			Module hack = entry.getValue();
+			if (hack.isEnabled()) {
+				minecraft.fontRendererObj.drawString(entry.getValue().hackName, 4, 14, -1);
+			}
+			
+		}
+		
+	}
+	
+}

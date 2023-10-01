@@ -4,9 +4,12 @@
     <fullyQualifiedTypeName name="epichacks.modules.Module"/>
     <fullyQualifiedTypeName name="org.lwjgl.input.Keyboard"/>
     <fullyQualifiedTypeName name="epichacks.modules.movenment.Fly"/>
-    <fullyQualifiedTypeName name="epichacks.Client"/>
     <fullyQualifiedTypeName name="epichacks.events.EventType"/>
     <fullyQualifiedTypeName name="epichacks.events.Event"/>
     <fullyQualifiedTypeName name="epichacks.events.listeners.EventUpdate"/>
+    <fullyQualifiedTypeName name="epichacks.ui.HUD"/>
     <fullyQualifiedTypeName name="net.minecraft.client.Minecraft"/>
+    <fullyQualifiedTypeName name="net.minecraft.client.gui.ScaledResolution"/>
+    <fullyQualifiedTypeName name="epichacks.Client"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
 </qualifiedTypeNameHistroy>
