@@ -2,6 +2,7 @@ package epichacks;
 
 import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
+import epichacks.modules.movenment.Autosprint;
 import epichacks.modules.movenment.Fly;
 import epichacks.ui.HUD;
 import epichacks.events.Event;
@@ -24,8 +25,12 @@ public class Client {
      * Initializes the client by adding a {@link epichacks.modules.movenment.Fly} module to the modules map.
      */
     public static void startup() {
+    	// Fly
         Module flyModule = new Fly();
         modules.put(flyModule.getKey(), flyModule);
+        // Autosprint
+        Module autoSprint = new Autosprint();
+        modules.put(autoSprint.getKey(), autoSprint);
     }
 
     /**

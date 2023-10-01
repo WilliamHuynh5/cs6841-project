@@ -1,5 +1,5 @@
 # Ignore everything in the repository
-*
+/*
 
 # Except for the 'src' directory and .gitignore
 !/src/
