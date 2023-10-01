@@ -1,0 +1,13 @@
+package epichacks.ui;
+
+import net.minecraft.client.Minecraft;
+
+public class HUD {
+	
+	public Minecraft minecraft = Minecraft.getMinecraft();
+	
+	public void draw() {
+		ScaledResolution scaledResolutiojn = new ScaledResolution(minecraft);
+	}
+	
+}

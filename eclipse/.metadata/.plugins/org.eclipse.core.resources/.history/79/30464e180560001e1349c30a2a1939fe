@@ -1,0 +1,23 @@
+package epichacks.ui;
+
+import java.util.Map;
+
+import epichacks.Client;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
+
+public class HUD {
+	
+	public Minecraft minecraft = Minecraft.getMinecraft();
+	
+	public void draw() {
+		ScaledResolution scaledResolutiojn = new ScaledResolution(minecraft, minecraft.displayWidth, minecraft.displayHeight);
+		minecraft.fontRendererObj.drawString(Client.name + " v" + Client.version, 4, 4, -1);
+		
+		for (Map.Entry<Integer, Module> entry: Client.modules.entrySet()) {
+			
+		}
+		
+	}
+	
+}

@@ -1,0 +1,9 @@
+package epichacks.ui;
+
+public class HUD {
+	
+	public void draw() {
+		
+	}
+	
+}

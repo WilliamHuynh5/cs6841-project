@@ -3,6 +3,7 @@ package epichacks;
 import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
 import epichacks.modules.movenment.Fly;
+import epichacks.ui.HUD;
 import epichacks.events.Event;
 
 
@@ -16,7 +17,9 @@ public class Client {
      * A concurrent map that stores modules with integer keys.
      */
     public static ConcurrentHashMap<Integer, Module> modules = new ConcurrentHashMap<Integer, Module>();
-
+    public static HUD hud = new HUD();
+	public static String name = "Epic Minecraft Hacks";
+	public static String version = "1.8";
     /**
      * Initializes the client by adding a {@link epichacks.modules.movenment.Fly} module to the modules map.
      */
