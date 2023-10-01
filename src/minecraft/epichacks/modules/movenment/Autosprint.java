@@ -1,3 +1,13 @@
+package epichacks.modules.movenment;
+
+import org.lwjgl.input.Keyboard;
+
+import epichacks.events.Event;
+import epichacks.events.listeners.EventUpdate;
+import epichacks.modules.Module;
+import epichacks.events.Event;
+import epichacks.events.listeners.EventUpdate;
+
 /**
  * The {@code Autosprint} class represents a hack that automatically sprints in the game.
  * It extends the {@link epichacks.modules.Module} class and provides specific behavior for enabling and disabling autosprint.
@@ -44,3 +54,4 @@ public class Autosprint extends Module {
         }
     }
 }
+
