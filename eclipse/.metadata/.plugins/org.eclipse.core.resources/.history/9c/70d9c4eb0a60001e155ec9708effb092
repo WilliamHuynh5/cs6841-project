@@ -1,0 +1,11 @@
+package epichacks.modules.movenment;
+
+public class Autosprint extends Module{
+    /**
+     * Constructs a new {@code Fly} hack with the default name, key code, and category.
+     * The default key code is {@link org.lwjgl.input.Keyboard#KEY_G}.
+     */
+    public Autosprint() {
+        super("fly", Keyboard.KEY_N, Category.MOVEMENT);
+    }
+}
