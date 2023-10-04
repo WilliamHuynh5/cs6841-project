@@ -40,22 +40,29 @@ public class Module {
         /**
          * Represents combat-related hacks.
          */
-        COMBAT,
+        COMBAT("Combat"),
 
         /**
          * Represents movement-related hacks.
          */
-        MOVEMENT,
+        MOVEMENT("Movement"),
 
         /**
          * Represents player-related hacks.
          */
-        PLAYER,
+        PLAYER("Player"),
 
         /**
          * Represents render-related hacks.
          */
-        RENDER
+        RENDER("Render");
+        
+        public String name;
+        public int moduleIndex;
+    	
+    	Category(String name) {
+    		this.name = name;
+    	}
     }
 
     /**

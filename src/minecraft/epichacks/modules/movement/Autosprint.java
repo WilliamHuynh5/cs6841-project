@@ -48,8 +48,7 @@ public class Autosprint extends Module {
     @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
-            if (e.isPre() && mc.thePlayer.moveForward > 0 && !mc.thePlayer.isUsingItem()
-            		&& !mc.thePlayer.isSneaking() && !mc.thePlayer.isCollided) {
+            if (e.isPre() && mc.thePlayer.moveForward > 0 ) {
                 mc.thePlayer.setSprinting(true);
             }
         }

@@ -1,13 +1,19 @@
 package epichacks;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
+import epichacks.modules.Module.Category;
 import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
 import epichacks.modules.player.Nofall;
 import epichacks.modules.render.Fullbright;
+import epichacks.modules.render.TabGUI;
 import epichacks.ui.HUD;
 import epichacks.events.Event;
+import epichacks.events.listeners.EventKey;
 
 
 /**
@@ -39,6 +45,9 @@ public class Client {
         // Nofall
         Module noFall = new Nofall();
         modules.put(noFall.getKey(), noFall);
+        // TabGUI
+        Module tabGui = new TabGUI();
+        modules.put(tabGui.getKey(), tabGui);
     }
 
     /**
@@ -58,8 +67,20 @@ public class Client {
      * @param key The key associated with the module to be toggled.
      */
     public static void keyPress(int key) {
+    	Client.onEvent(new EventKey(key));
         if (modules.containsKey(key)) {
             modules.get(key).toggle();
         }
+    }
+    
+    public static List<Module> getModulesByCategory(Category c) {
+    	List<Module> modules = new ArrayList<Module>();
+    	
+    	for (Map.Entry<Integer, Module> pair : Client.modules.entrySet()) {
+    		if(pair.getValue().hackCategory == c) {
+    			modules.add(pair.getValue());
+    		}
+    	}
+    	return modules;
     }
 }

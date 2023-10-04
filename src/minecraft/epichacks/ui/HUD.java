@@ -5,6 +5,8 @@ import java.util.Map.Entry;
 
 import epichacks.Client;
 import epichacks.modules.Module;
+import epichacks.events.listeners.EventRenderGUI;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
@@ -47,11 +49,13 @@ public class HUD {
 
         for (Entry<Integer, Module> entry : Client.modules.entrySet()) {
             Module hack = entry.getValue();
+            if (hack.hackName.equals("TabGUI")) continue;
             if (hack.isEnabled()) {
                 // Render the name of the enabled module at the specified coordinates.
                 minecraft.fontRendererObj.drawString(entry.getValue().hackName, defaultXCoord, yCoord, defaultZCoord);
                 yCoord += yDisplacement; // Move to the next Y-coordinate for the next module.
             }
         }
+        Client.onEvent(new EventRenderGUI());
     }
 }
