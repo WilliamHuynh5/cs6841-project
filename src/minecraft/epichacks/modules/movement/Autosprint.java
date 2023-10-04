@@ -1,4 +1,4 @@
-package epichacks.modules.movenment;
+package epichacks.modules.movement;
 
 import org.lwjgl.input.Keyboard;
 
@@ -48,7 +48,7 @@ public class Autosprint extends Module {
     @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
-            if (e.isPre()) {
+            if (e.isPre() && mc.thePlayer.moveForward > 0 ) {
                 mc.thePlayer.setSprinting(true);
             }
         }

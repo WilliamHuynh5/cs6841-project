@@ -1,4 +1,4 @@
-package epichacks.modules.movenment;
+package epichacks.modules.movement;
 import org.lwjgl.input.Keyboard;
 
 import epichacks.events.Event;
@@ -21,23 +21,12 @@ public class Fly extends Module {
     }
 
     /**
-     * Called when the hack is enabled.
-     * This method sets the player's flight capabilities to allow flying.
-     */
-    @Override
-    public void onEnable() {
-        mc.thePlayer.capabilities.isFlying = true;
-        mc.thePlayer.capabilities.allowFlying = true;
-    }
-
-    /**
      * Called when the hack is disabled.
      * This method disables the player's flight capabilities.
      */
     @Override
     public void onDisable() {
         mc.thePlayer.capabilities.isFlying = false;
-        mc.thePlayer.capabilities.allowFlying = false;
     }
 
     /**
@@ -49,7 +38,7 @@ public class Fly extends Module {
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
             if (e.isPre()) {
-                // Additional logic specific to the EventUpdate can be added here.
+            	mc.thePlayer.capabilities.isFlying = true;
             }
         }
     }
