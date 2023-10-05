@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
 import epichacks.modules.Module.Category;
+import epichacks.modules.combat.KillAura;
 import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
 import epichacks.modules.player.Nofall;
@@ -48,6 +49,9 @@ public class Client {
         // TabGUI
         Module tabGui = new TabGUI();
         modules.put(tabGui.getKey(), tabGui);
+        // KillAura
+        Module killAura = new KillAura();
+        modules.put(killAura.getKey(), killAura);
     }
 
     /**
