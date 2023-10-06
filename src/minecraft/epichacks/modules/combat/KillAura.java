@@ -9,6 +9,9 @@ import org.lwjgl.input.Keyboard;
 import epichacks.events.Event;
 import epichacks.events.listeners.EventMotion;
 import epichacks.modules.Module;
+import epichacks.settings.BooleanSetting;
+import epichacks.settings.ModeSetting;
+import epichacks.settings.NumberSetting;
 import epichacks.util.Timer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,6 +20,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.client.C02PacketUseEntity;
 import net.minecraft.network.play.client.C02PacketUseEntity.Action;
+import net.minecraft.network.play.client.C0APacketAnimation;
 
 /**
  * The {@code KillAura} class represents a hack that automatically targets and attacks nearby entities or players within a certain range.
@@ -25,6 +29,10 @@ import net.minecraft.network.play.client.C02PacketUseEntity.Action;
 public class KillAura extends Module {
 	
 	public Timer timer = new Timer();
+	public NumberSetting range = new NumberSetting("Range", 4, 1, 6, 0.1);
+	public NumberSetting aps = new NumberSetting("APS", 10, 1, 20, 1);
+	public BooleanSetting noSwing = new BooleanSetting("No Swing", false);
+	public ModeSetting test = new ModeSetting("Test", "One", "One", "Two", "Three");
 	
     /**
      * Constructs a new {@code KillAura} hack with the default name, key code, and category.
@@ -32,6 +40,7 @@ public class KillAura extends Module {
      */
     public KillAura() {
         super("killaura", Keyboard.KEY_X, Category.COMBAT);
+        this.addSettings(range, aps, noSwing, test);
     }
 
     /**
@@ -69,7 +78,7 @@ public class KillAura extends Module {
     			List<EntityLivingBase> targets = (List<EntityLivingBase>) mc.theWorld.loadedEntityList.stream()
     					.filter(EntityLivingBase.class::isInstance).collect(Collectors.toList());
     			
-    			targets = targets.stream().filter(entity -> entity.getDistanceToEntity(mc.thePlayer) < 4 &&
+    			targets = targets.stream().filter(entity -> entity.getDistanceToEntity(mc.thePlayer) < range.getValue() &&
     					entity != mc.thePlayer && !entity.isDead && entity.getHealth() > 0).collect(Collectors.toList());
     			
     			// sort the entities by closest to farthest away
@@ -85,9 +94,13 @@ public class KillAura extends Module {
     				event.setYaw(getRotations(target)[0]);
     				event.setPitch(getRotations(target)[1]);
     				
-    				if (timer.hasTimeElapsed(1000 / 10, true)) {
-    					// ensure the player swings the item when attacking the entity
-    					mc.thePlayer.swingItem();
+    				if (timer.hasTimeElapsed((long) (1000 / aps.getValue()), true)) {
+    					if (noSwing.isEnabled()) {
+    	    				mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
+    					} else {
+        					// ensure the player swings the item when attacking the entity
+        					mc.thePlayer.swingItem();
+    					}
 	    				// attack the closest entity 10x/second
 	    				mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, Action.ATTACK));
     				}

@@ -47,9 +47,9 @@ public class Gui
     /**
      * Draws a solid color rectangle with the specified coordinates and color (ARGB format). Args: x1, y1, x2, y2, color
      */
-    public static void drawRect(int left, int top, int right, int bottom, int color)
+    public static void drawRect(double left, double top, double right, double bottom, int color)
     {
-        int var5;
+        double var5;
 
         if (left < right)
         {
@@ -76,10 +76,10 @@ public class Gui
         GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
         GlStateManager.color(var6, var7, var8, var11);
         var10.startDrawingQuads();
-        var10.addVertex((double)left, (double)bottom, 0.0D);
-        var10.addVertex((double)right, (double)bottom, 0.0D);
-        var10.addVertex((double)right, (double)top, 0.0D);
-        var10.addVertex((double)left, (double)top, 0.0D);
+        var10.addVertex((double)left, bottom, 0.0D);
+        var10.addVertex((double)right, bottom, 0.0D);
+        var10.addVertex((double)right, top, 0.0D);
+        var10.addVertex((double)left, top, 0.0D);
         var9.draw();
         GlStateManager.func_179098_w();
         GlStateManager.disableBlend();
