@@ -1,6 +1,11 @@
 package epichacks.modules;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import epichacks.events.Event;
+import epichacks.settings.Setting;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -32,6 +37,21 @@ public class Module {
      * An instance of Minecraft client for game-related operations.
      */
     public Minecraft mc = Minecraft.getMinecraft();
+    
+    /**
+     * A flag indicating whether the hack's settings are expanded or not.
+     */
+    public boolean expanded;  
+    
+    /**
+     * A index indicating which setting the player is currently looking at.
+     */
+    public int index;
+    
+    /**
+     * List to store instances of settings for a particular hack.
+     */
+    public List<Setting> settings = new ArrayList<Setting>();
 
     /**
      * Enumeration representing the possible categories of hacks.
@@ -76,6 +96,15 @@ public class Module {
         this.hackName = name;
         this.hackKeycode = keycode;
         this.hackCategory = category;
+    }
+    
+    /**
+     * Adds an array of settings to the list of settings for a particular hack.
+     *
+     * @param settings An array of settings to be added.
+     */
+    public void addSettings(Setting...settings) {
+    	this.settings.addAll(Arrays.asList(settings));
     }
 
     /**
