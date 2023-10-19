@@ -32,7 +32,6 @@ public class KillAura extends Module {
 	public NumberSetting range = new NumberSetting("Range", 4, 1, 6, 0.1);
 	public NumberSetting aps = new NumberSetting("APS", 10, 1, 20, 1);
 	public BooleanSetting noSwing = new BooleanSetting("No Swing", false);
-//	public ModeSetting test = new ModeSetting("Test", "One", "One", "Two", "Three");
 	
     /**
      * Constructs a new {@code KillAura} hack with the default name, key code, and category.
@@ -40,7 +39,6 @@ public class KillAura extends Module {
      */
     public KillAura() {
         super("killaura", Keyboard.KEY_X, Category.COMBAT);
-//        this.addSettings(range, aps, noSwing, test);
         this.addSettings(range, aps, noSwing);
     }
 

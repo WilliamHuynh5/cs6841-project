@@ -9,6 +9,7 @@ import epichacks.modules.Module.Category;
 import epichacks.modules.combat.KillAura;
 import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
+import epichacks.modules.movement.HighJump;
 import epichacks.modules.player.Nofall;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.TabGUI;
@@ -52,6 +53,9 @@ public class Client {
         // KillAura
         Module killAura = new KillAura();
         modules.put(killAura.getKey(), killAura);
+        // High Jump
+        Module highJump = new HighJump();
+        modules.put(highJump.getKey(), highJump);
     }
 
     /**
