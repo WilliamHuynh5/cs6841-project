@@ -28,20 +28,16 @@ public class HighJump extends Module {
 
     /**
      * Called when the hack is disabled.
-     * Restores the default jump movement factor and resets the jump flag.
+     * Resets the jump flag.
      */
     @Override
     public void onDisable() {
-        // Restore the default jump movement factor
-        mc.thePlayer.jumpMovementFactor = (float) mc.thePlayer.capabilities.getFlySpeed() * (float) (mc.thePlayer.isSprinting() ? 2 : 1);
-        // Reset the jump flag when the hack is disabled
         hasJumped = false;
     }
 
     /**
      * Handles an event, specifically the {@link epichacks.events.listeners.EventUpdate} event.
      * When the event is "PRE," this method sets a custom jump height for the player based on the height setting.
-     * Takes into account the base jump height, custom height setting, and potion effects.
      *
      * @param e The event to be handled.
      */
@@ -49,9 +45,8 @@ public class HighJump extends Module {
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
             if (e.isPre() && Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !hasJumped) {
-                // Set a custom jump height
-                setCustomJumpHeight();
-                hasJumped = true;  // Set the flag to true after the high jump
+                jumpHigh();
+                hasJumped = true;  
             }
             // Reset the flag when the player is on the ground
             if (mc.thePlayer.onGround) {
@@ -62,13 +57,11 @@ public class HighJump extends Module {
 
     /**
      * Sets a custom jump height for the player based on the height setting.
-     * Takes into account the base jump height, custom height setting, and potion effects.
+     * Takes into account the base jump height (0.42F), custom height setting, and potion effects.
      */
-    private void setCustomJumpHeight() {
-        float baseJumpHeight = 0.42F; // The default jump height in Minecraft
-
+    private void jumpHigh() {
         // Calculate the jump height considering the custom height setting
-        float jumpHeight = baseJumpHeight + (float) height.getValue() * 0.01F;
+        float jumpHeight = 0.42F + (float) height.getValue() * 0.01F;
 
         // Apply potion effects
         if (mc.thePlayer.isPotionActive(Potion.jump)) {
