@@ -43,133 +43,129 @@ public class TabGUI extends Module {
      * @param e The event being handled.
      */
     public void onEvent(Event e) {
-    	if (e instanceof EventRenderGUI) {
-    		// Get the FontRenderer object for rendering text
-    		FontRenderer fr = mc.fontRendererObj;
+        if (e instanceof EventRenderGUI) {
+            // Get the FontRenderer object for rendering text
+            FontRenderer fr = mc.fontRendererObj;
 
-    		// Define primary and secondary colors for the GUI
-    		int primaryColour = 0Xff0090ff, secondaryColour = 0xff0070aa;
+            // Define primary and secondary colors for the GUI
+            int primaryColour = 0Xff0090ff, secondaryColour = 0xff0070aa;
 
-    		// Draw a semi-transparent background for the module category area
-    		Gui.drawRect(5, 30.5, 70, 30 + Module.Category.values().length * 16 + 1.5, 0x90000000);
+            // Draw a semi-transparent background for the module category area
+            Gui.drawRect(5, 5, 70, 5 + Module.Category.values().length * 16, 0x90000000);
 
-    		// Draw a colored rectangle to highlight the current tab/category
-    		Gui.drawRect(5, 30.5 + currentTab * 16, 7 + 61 + 2, 33 + currentTab * 16 + 12 + 2.5, primaryColour);
+            // Draw a colored rectangle to highlight the current tab/category
+            Gui.drawRect(5, 5 + currentTab * 16, 70, 21 + currentTab * 16, primaryColour);
 
-    		// Initialize a count to keep track of the categories being displayed
-    		int count = 0;
+            // Initialize a count to keep track of the categories being displayed
+            int count = 0;
 
-    		// Iterate through each category and display its name
-    		for (Category c : Module.Category.values()) {
-    		    // Display the category name
-    		    fr.drawString(c.name, 11, 35 + count * 16, -1);
-    		    count++;
-    		}
-    		    		
-    		// Check if the GUI is expanded
-    		if (expanded) {
-    		    // Get the category based on the current tab
-    		    Category category = Module.Category.values()[currentTab];
+            // Iterate through each category and display its name
+            for (Category c : Module.Category.values()) {
+                // Display the category name
+                fr.drawString(c.name, 11, 10 + count * 16, -1);
+                count++;
+            }
 
-    		    // Get modules for the current category
-    		    List<Module> modules = Client.getModulesByCategory(category);
-    		    
-    		    // Check if there are no modules in this category, and return if so
-    		    if (modules.size() == 0) {
-    		        return;
-    		    }
-    		    
-    		    // Draw a semi-transparent background for the module list
-    		    Gui.drawRect(70, 30.5, 70 + 68, 30 + modules.size() * 16 + 1.5, 0x90000000);
-    		    
-    		    // Draw a colored rectangle to highlight the current category
-    		    Gui.drawRect(70, 30.5 + category.moduleIndex * 16, 7 + 61 + 70, 33 + category.moduleIndex * 16 + 12 + 2.5, primaryColour);
+            // Check if the GUI is expanded
+            if (expanded) {
+                // Get the category based on the current tab
+                Category category = Module.Category.values()[currentTab];
 
-        		count = 0;
-        		for (Module m : modules) {
-        			// Draw the module's name at the specified position
-        			fr.drawString(m.hackName, 73, 35 + count * 16, -1);
+                // Get modules for the current category
+                List<Module> modules = Client.getModulesByCategory(category);
 
-        			// Check if this module is the currently selected one and expanded
-        			if (count == category.moduleIndex && m.expanded) {
-                		int index = 0, maxLength = 0;
-                		// Iterate through each setting in the module
-                		for (Setting setting : m.settings) {
-                		    // Check if the setting is a boolean setting
-                		    if (setting instanceof BooleanSetting) {
-                		        // Cast the setting to a BooleanSetting
-                		        BooleanSetting bool = (BooleanSetting) setting;
+                // Check if there are no modules in this category, and return if so
+                if (modules.size() == 0) {
+                    return;
+                }
 
-                		        // Calculate the maximum text length for boolean settings
-                		        if (maxLength < fr.getStringWidth(setting.name + ": " + (bool.enabled ? "Enabled" : "Disabled"))) {
-                		            maxLength = fr.getStringWidth(setting.name + ": " + (bool.enabled ? "Enabled" : "Disabled"));
-                		        }
-                		    }
+                // Calculate the maximum module name width
+                int maxModuleNameWidth = 0;
+                for (Module m : modules) {
+                    int moduleNameWidth = fr.getStringWidth(m.hackName);
+                    if (moduleNameWidth > maxModuleNameWidth) {
+                        maxModuleNameWidth = moduleNameWidth;
+                    }
+                }
 
-                		    // Check if the setting is a number setting
-                		    if (setting instanceof NumberSetting) {
-                		        // Cast the setting to a NumberSetting
-                		        NumberSetting number = (NumberSetting) setting;
+                // Draw a semi-transparent background for the module list
+                int moduleListWidth = 70 + maxModuleNameWidth + 9; // Add some padding
+                Gui.drawRect(70, 5, moduleListWidth + 3, 5 + modules.size() * 16, 0x90000000);
 
-                		        // Calculate the maximum text length for number settings
-                		        if (maxLength < fr.getStringWidth(setting.name + ": " + number.getValue())) {
-                		            maxLength = fr.getStringWidth(setting.name + ": " + number.getValue());
-                		        }
-                		    }
+                // Draw a colored rectangle to highlight the current category
+                Gui.drawRect(70, 5 + category.moduleIndex * 16, moduleListWidth + 3, 21 + category.moduleIndex * 16, primaryColour);
 
-                		    // Check if the setting is a mode setting
-                		    if (setting instanceof ModeSetting) {
-                		        // Cast the setting to a ModeSetting
-                		        ModeSetting mode = (ModeSetting) setting;
+                count = 0;
+                for (Module m : modules) {
+                    // Draw the module's name at the specified position
+                    fr.drawString(m.hackName, 76, 10 + count * 16, -1);
 
-                		        // Calculate the maximum text length for mode settings
-                		        if (maxLength < fr.getStringWidth(setting.name + ": " + mode.getMode())) {
-                		            maxLength = fr.getStringWidth(setting.name + ": " + mode.getMode());
-                		        }
-                		    }
+                    // Check if this module is the currently selected one and expanded
+                    if (count == category.moduleIndex && m.expanded) {
+                        int index = 0;
+                        int maxLength = 0;
+                        // Iterate through each setting in the module
+                        for (Setting setting : m.settings) {
+                            // Calculate the maximum text length for different settings
+                            int settingTextWidth = 0;
+                            if (setting instanceof BooleanSetting) {
+                                BooleanSetting bool = (BooleanSetting) setting;
+                                settingTextWidth = fr.getStringWidth(setting.name + ": " + (bool.enabled ? "Enabled" : "Disabled"));
+                            } else if (setting instanceof NumberSetting) {
+                                NumberSetting number = (NumberSetting) setting;
+                                settingTextWidth = fr.getStringWidth(setting.name + ": " + number.getValue());
+                            } else if (setting instanceof ModeSetting) {
+                                ModeSetting mode = (ModeSetting) setting;
+                                settingTextWidth = fr.getStringWidth(setting.name + ": " + mode.getMode());
+                            }
 
-                		    // Increment the index for the next setting
-                		    index++;
-                		}
-                		
-                		// Check if the module has settings
-                		if (!m.settings.isEmpty()) {
-                		    // Draw a semi-transparent background for the settings area
-                		    Gui.drawRect(70 + 68, 30.5, 70 + 68 + maxLength + 9, 30 + m.settings.size() * 16 + 1.5, 0x90000000);
-                		    
-                		    // Draw a colored rectangle to highlight the selected setting
-                		    Gui.drawRect(70 + 68, 30.5 + m.index * 16, 7 + 61 + maxLength + 9 + 70, 33 + m.index * 16 + 12 + 2.5,
-                		    		m.settings.get(m.index).focused ? secondaryColour : primaryColour);
-                		    
-                		    // Initialize index to keep track of the setting being displayed
-                		    index = 0;
-                		    
-                		    // Iterate through each setting in the module
-                		    for (Setting setting : m.settings) {
-                		        // Display the setting based on its type
-                		        if (setting instanceof BooleanSetting) {
-                		            // Display a boolean setting
-                		            BooleanSetting bool = (BooleanSetting) setting;
-                		            fr.drawString(setting.name + ": " + (bool.enabled ? "Enabled" : "Disabled"), 73 + 68 + 2, 35 + index * 16, -1);
-                		        } else if (setting instanceof NumberSetting) {
-                		            // Display a number setting
-                		            NumberSetting number = (NumberSetting) setting;
-                		            fr.drawString(setting.name + ": " + number.getValue(), 73 + 68 + 2, 35 + index * 16, -1);
-                		        } else if (setting instanceof ModeSetting) {
-                		            // Display a mode setting
-                		            ModeSetting mode = (ModeSetting) setting;
-                		            fr.drawString(setting.name + ": " + mode.getMode(), 73 + 68 + 2, 35 + index * 16, -1);
-                		        }
-                		        
-                		        // Increment the index for the next setting
-                		        index++;
-                		    }
-                		}
-        			}
-        			count++;
-        		}    			
-    		}	
-    	}
+                            if (settingTextWidth > maxLength) {
+                                maxLength = settingTextWidth;
+                            }
+
+                            // Increment the index for the next setting
+                            index++;
+                        }
+
+                        // Check if the module has settings
+                        if (!m.settings.isEmpty()) {
+                            // Draw a semi-transparent background for the settings area
+                            Gui.drawRect(moduleListWidth + 3, 5, moduleListWidth + maxLength + 13, 5 + m.settings.size() * 16, 0x90000000);
+
+                            // Draw a colored rectangle to highlight the selected setting
+                            Gui.drawRect(moduleListWidth + 3, 5 + m.index * 16, moduleListWidth + maxLength + 13, 21 + m.index * 16,
+                                    m.settings.get(m.index).focused ? secondaryColour : primaryColour);
+
+                            // Initialize index to keep track of the setting being displayed
+                            index = 0;
+
+                            // Iterate through each setting in the module
+                            for (Setting setting : m.settings) {
+                                // Display the setting based on its type
+                                if (setting instanceof BooleanSetting) {
+                                    // Display a boolean setting
+                                    BooleanSetting bool = (BooleanSetting) setting;
+                                    fr.drawString(setting.name + ": " + (bool.enabled ? "Enabled" : "Disabled"), moduleListWidth + 9, 10 + index * 16, -1);
+                                } else if (setting instanceof NumberSetting) {
+                                    // Display a number setting
+                                    NumberSetting number = (NumberSetting) setting;
+                                    fr.drawString(setting.name + ": " + number.getValue(), moduleListWidth + 9, 10 + index * 16, -1);
+                                } else if (setting instanceof ModeSetting) {
+                                    // Display a mode setting
+                                    ModeSetting mode = (ModeSetting) setting;
+                                    fr.drawString(setting.name + ": " + mode.getMode(), moduleListWidth + 9, 10 + index * 16, -1);
+                                }
+
+                                // Increment the index for the next setting
+                                index++;
+                            }
+                        }
+                    }
+                    count++;
+                }
+            }
+        }
+
     	
     	if (e instanceof EventKey) {
     		// Get the category based on the current tab

@@ -1,7 +1,9 @@
 package epichacks.ui;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import epichacks.Client;
 import epichacks.modules.Module;
@@ -43,18 +45,34 @@ public class HUD {
     /**
      * Draws the heads-up display by rendering the names of enabled modules on the screen.
      */
+    /**
+     * Draws the heads-up display by rendering the names of enabled modules on the screen.
+     */
     public void draw() {
         ScaledResolution scaledResolution = new ScaledResolution(minecraft, minecraft.displayWidth, minecraft.displayHeight);
         Integer yCoord = defaultYCoord;
 
-        for (Entry<Integer, Module> entry : Client.modules.entrySet()) {
-            Module hack = entry.getValue();
-            if (hack.hackName.equals("TabGUI")) continue;
-            if (hack.isEnabled()) {
-                // Render the name of the enabled module at the specified coordinates.
-                minecraft.fontRendererObj.drawString(entry.getValue().hackName, defaultXCoord, yCoord, defaultZCoord);
-                yCoord += yDisplacement; // Move to the next Y-coordinate for the next module.
-            }
+        // Calculate the width of the screen
+        int screenWidth = scaledResolution.getScaledWidth();
+
+        // Create a list of Entry objects (module name and module instance) sorted by module name length
+        List<Entry<Integer, Module>> sortedModules = Client.modules.entrySet()
+                .stream()
+                .filter(entry -> !entry.getValue().hackName.equals("TabGUI") && entry.getValue().isEnabled())
+                .sorted((e1, e2) -> Integer.compare(
+                        minecraft.fontRendererObj.getStringWidth(e2.getValue().hackName),
+                        minecraft.fontRendererObj.getStringWidth(e1.getValue().hackName)
+                ))
+                .collect(Collectors.toList());
+
+        for (Entry<Integer, Module> entry : sortedModules) {
+            // Calculate the X-coordinate for rendering based on the module name's width
+            int nameWidth = minecraft.fontRendererObj.getStringWidth(entry.getValue().hackName);
+            int xCoord = screenWidth - defaultXCoord - nameWidth;
+
+            // Render the name of the enabled module at the specified coordinates.
+            minecraft.fontRendererObj.drawString(entry.getValue().hackName, xCoord, yCoord, defaultZCoord);
+            yCoord += yDisplacement; // Move to the next Y-coordinate for the next module.
         }
         Client.onEvent(new EventRenderGUI());
     }
