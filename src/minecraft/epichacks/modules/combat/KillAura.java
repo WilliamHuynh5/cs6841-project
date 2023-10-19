@@ -32,7 +32,6 @@ public class KillAura extends Module {
 	public NumberSetting range = new NumberSetting("Range", 4, 1, 6, 0.1);
 	public NumberSetting aps = new NumberSetting("APS", 10, 1, 20, 1);
 	public BooleanSetting noSwing = new BooleanSetting("No Swing", false);
-	public ModeSetting test = new ModeSetting("Test", "One", "One", "Two", "Three");
 	
     /**
      * Constructs a new {@code KillAura} hack with the default name, key code, and category.
@@ -40,7 +39,7 @@ public class KillAura extends Module {
      */
     public KillAura() {
         super("killaura", Keyboard.KEY_X, Category.COMBAT);
-        this.addSettings(range, aps, noSwing, test);
+        this.addSettings(range, aps, noSwing);
     }
 
     /**
@@ -75,33 +74,39 @@ public class KillAura extends Module {
     			
     			EventMotion event = (EventMotion)e;
     			
+                // Get a list of all living entities in the loaded world
     			List<EntityLivingBase> targets = (List<EntityLivingBase>) mc.theWorld.loadedEntityList.stream()
     					.filter(EntityLivingBase.class::isInstance).collect(Collectors.toList());
     			
+                // Filter the list to only include entities within a certain range, alive, and not the player
     			targets = targets.stream().filter(entity -> entity.getDistanceToEntity(mc.thePlayer) < range.getValue() &&
     					entity != mc.thePlayer && !entity.isDead && entity.getHealth() > 0).collect(Collectors.toList());
     			
-    			// sort the entities by closest to farthest away
+                // Sort the entities by their distance to the player, from closest to farthest
     			targets.sort(Comparator.comparingDouble(entity -> ((EntityLivingBase)entity).getDistanceToEntity(mc.thePlayer)));
     			
-    			// filter to only kill hostile mobs and players
+                // Filter the list to only include hostile mobs and players
     			targets = targets.stream().filter(entity -> entity instanceof EntityMob || entity instanceof EntityPlayer)
     					.collect(Collectors.toList());
     			
     			if (!targets.isEmpty()) {
+                    // Get the closest entity
     				EntityLivingBase target = targets.get(0);
     				
+                    // Set the yaw and pitch of the player to face the target entity
     				event.setYaw(getRotations(target)[0]);
     				event.setPitch(getRotations(target)[1]);
     				
+                    // Check if the attack timer has elapsed to attack the target
     				if (timer.hasTimeElapsed((long) (1000 / aps.getValue()), true)) {
     					if (noSwing.isEnabled()) {
+                            // Send a packet to perform the attack animation (no swing)
     	    				mc.thePlayer.sendQueue.addToSendQueue(new C0APacketAnimation());
     					} else {
-        					// ensure the player swings the item when attacking the entity
+                            // Ensure the player swings the item when attacking the entity
         					mc.thePlayer.swingItem();
     					}
-	    				// attack the closest entity 10x/second
+                        // Attack the closest entity at a specified rate (10 times per second)
 	    				mc.thePlayer.sendQueue.addToSendQueue(new C02PacketUseEntity(target, Action.ATTACK));
     				}
     			}
@@ -109,7 +114,7 @@ public class KillAura extends Module {
     	}
     }
     
-    /**
+   /**
      * Calculates yaw and pitch angles to face an entity.
      *
      * @param e The target entity to face.
@@ -117,21 +122,25 @@ public class KillAura extends Module {
      */
     public float[] getRotations(Entity e) {
         // Calculate the differences in X, Y, and Z coordinates between the player and the target entity.
-    	double deltaX = e.posX + (e.posX - e.lastTickPosX) - mc.thePlayer.posX,
-    		   deltaY = e.posY - 3.5 + e.getEyeHeight() - mc.thePlayer.posY + mc.thePlayer.getEyeHeight(),
-    		   deltaZ = e.posZ + (e.posZ - e.lastTickPosZ) - mc.thePlayer.posZ,
-    		   distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2)); 
-    	
+        double deltaX = e.posX + (e.posX - e.lastTickPosX) - mc.thePlayer.posX,
+               deltaY = e.posY - 3.5 + e.getEyeHeight() - mc.thePlayer.posY + mc.thePlayer.getEyeHeight(),
+               deltaZ = e.posZ + (e.posZ - e.lastTickPosZ) - mc.thePlayer.posZ,
+               distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaZ, 2)); 
+
         // Calculate the yaw and pitch angles
-    	float yaw = (float) Math.toDegrees(-Math.atan(deltaX / deltaZ)),
-    		  pitch = (float) -Math.toDegrees(Math.atan(deltaY / distance));
-    	
-        // Adjust yaw angle based on the quadrant of the target entity
-    	if (deltaX < 0 && deltaZ < 0) {
-    		yaw = (float) (90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
-    	} else if (deltaX > 0 && deltaZ < 0) {
-    		yaw = (float) (-90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
-    	}
-    	return new float[] { yaw, pitch };
+        // The yaw angle is calculated using the arctangent of deltaX and deltaZ.
+        float yaw = (float) Math.toDegrees(-Math.atan(deltaX / deltaZ)),
+              // The pitch angle is calculated using the arctangent of deltaY and the calculated distance.
+              pitch = (float) -Math.toDegrees(Math.atan(deltaY / distance));
+
+        // Adjust the yaw angle based on the quadrant of the target entity
+        // This ensures that the player faces the target correctly, considering the target's position.
+        if (deltaX < 0 && deltaZ < 0) {
+            yaw = (float) (90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
+        } else if (deltaX > 0 && deltaZ < 0) {
+            yaw = (float) (-90 + Math.toDegrees(Math.atan(deltaZ / deltaX)));
+        }
+        // Return an array containing the calculated yaw and pitch angles in degrees.
+        return new float[] { yaw, pitch };
     }
 }
