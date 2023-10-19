@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import epichacks.modules.Module;
 import epichacks.modules.Module.Category;
 import epichacks.modules.combat.KillAura;
+import epichacks.modules.movement.AutoSneak;
 import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
@@ -14,6 +15,7 @@ import epichacks.modules.movement.LongJump;
 import epichacks.modules.player.Nofall;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.TabGUI;
+import epichacks.modules.render.WeatherControl;
 import epichacks.ui.HUD;
 import epichacks.events.Event;
 import epichacks.events.listeners.EventKey;
@@ -42,6 +44,9 @@ public class Client {
         // Autosprint
         Module autoSprint = new Autosprint();
         modules.put(autoSprint.getKey(), autoSprint);
+        // AutoSneak
+        Module autoSneak = new AutoSneak();
+        modules.put(autoSneak.getKey(), autoSneak);
         // Fullbright
         Module fullBright = new Fullbright();
         modules.put(fullBright.getKey(), fullBright);
@@ -60,6 +65,9 @@ public class Client {
         // Long Jump
         Module longJump = new LongJump();
         modules.put(longJump.getKey(), longJump);
+        // Weather Control
+        Module weatherControl = new WeatherControl();
+        modules.put(weatherControl.getKey(), weatherControl);
     }
 
     /**
