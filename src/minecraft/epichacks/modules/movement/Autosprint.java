@@ -22,15 +22,6 @@ public class Autosprint extends Module {
     }
 
     /**
-     * Called when the hack is enabled.
-     * This method is empty because autosprint does not require specific setup actions when enabled.
-     */
-    @Override
-    public void onEnable() {
-        // No specific actions needed when enabling autosprint.
-    }
-
-    /**
      * Called when the hack is disabled.
      * This method stops the player from sprinting when autosprint is disabled.
      */

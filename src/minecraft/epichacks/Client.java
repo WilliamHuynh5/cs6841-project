@@ -8,6 +8,7 @@ import epichacks.modules.Module;
 import epichacks.modules.Module.Category;
 import epichacks.modules.combat.KillAura;
 import epichacks.modules.movement.AutoSneak;
+import epichacks.modules.movement.AutoWalk;
 import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
@@ -44,9 +45,9 @@ public class Client {
         // Autosprint
         Module autoSprint = new Autosprint();
         modules.put(autoSprint.getKey(), autoSprint);
-        // AutoSneak
-        Module autoSneak = new AutoSneak();
-        modules.put(autoSneak.getKey(), autoSneak);
+        // AutoWalk
+        Module autoWalk = new AutoWalk();
+        modules.put(autoWalk.getKey(), autoWalk);
         // Fullbright
         Module fullBright = new Fullbright();
         modules.put(fullBright.getKey(), fullBright);

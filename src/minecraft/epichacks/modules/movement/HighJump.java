@@ -44,7 +44,7 @@ public class HighJump extends Module {
     @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
-            if (e.isPre() && Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !hasJumped) {
+            if (e.isPre() && mc.gameSettings.keyBindJump.getIsKeyPressed() && !hasJumped) {
                 jumpHigh();
                 hasJumped = true;  
             }

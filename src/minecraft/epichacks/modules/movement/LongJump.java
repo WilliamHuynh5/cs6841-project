@@ -44,7 +44,7 @@ public class LongJump extends Module {
     @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
-            if (e.isPre() && Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            if (e.isPre() && mc.gameSettings.keyBindJump.getIsKeyPressed()) {
                 setCustomJumpDistance();
                 hasJumped = true; 
             }
