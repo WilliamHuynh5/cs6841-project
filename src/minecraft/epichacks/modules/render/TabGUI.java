@@ -1,5 +1,7 @@
 package epichacks.modules.render;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.lwjgl.input.Keyboard;
@@ -79,6 +81,13 @@ public class TabGUI extends Module {
                     return;
                 }
 
+                // Sort the modules based on module names
+                Collections.sort(modules, new Comparator<Module>() {
+                    public int compare(Module module1, Module module2) {
+                        return module1.hackName.compareTo(module2.hackName);
+                    }
+                });
+                
                 // Calculate the maximum module name width
                 int maxModuleNameWidth = 0;
                 for (Module m : modules) {
