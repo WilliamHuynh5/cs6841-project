@@ -48,6 +48,9 @@ public class Client {
         // AutoWalk
         Module autoWalk = new AutoWalk();
         modules.put(autoWalk.getKey(), autoWalk);
+        // AutoSneak
+        Module autoSneak = new AutoSneak();
+        modules.put(autoSneak.getKey(), autoSneak);
         // Fullbright
         Module fullBright = new Fullbright();
         modules.put(fullBright.getKey(), fullBright);
