@@ -133,6 +133,15 @@ public class Module {
     public int getKey() {
         return hackKeycode;
     }
+    
+    /**
+     * Gets the hack name.
+     *
+     * @return The hack name.
+     */
+    public String getHackName() {
+        return hackName;
+    }
 
     /**
      * Toggles the hack's enabled state.
