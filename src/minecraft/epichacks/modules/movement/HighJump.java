@@ -6,6 +6,7 @@ import epichacks.events.Event;
 import epichacks.events.listeners.EventUpdate;
 import epichacks.modules.Module;
 import epichacks.settings.NumberSetting;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
 
 /**
@@ -41,11 +42,17 @@ public class HighJump extends Module {
      *
      * @param e The event to be handled.
      */
-    @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
             if (e.isPre() && mc.gameSettings.keyBindJump.getIsKeyPressed() && !hasJumped) {
-                jumpHigh();
+                float customJumpHeight = calculateCustomJumpHeight();
+                
+                // Modify the player's jump height with the custom value
+                applyCustomJumpHeight(customJumpHeight);
+
+                // Send packets to notify the server of the jump height changes
+                sendPlayerPackets(customJumpHeight);
+
                 hasJumped = true;  
             }
             // Reset the flag when the player is on the ground
@@ -56,10 +63,9 @@ public class HighJump extends Module {
     }
 
     /**
-     * Sets a custom jump height for the player based on the height setting.
-     * Takes into account the base jump height (0.42F), custom height setting, and potion effects.
+     * Calculates the custom jump height for the player based on the height setting and potion effects.
      */
-    private void jumpHigh() {
+    private float calculateCustomJumpHeight() {
         // Calculate the jump height considering the custom height setting
         float jumpHeight = 0.42F + (float) height.getValue() * 0.01F;
 
@@ -69,8 +75,30 @@ public class HighJump extends Module {
             jumpHeight += (float) amplifier * 0.1F;
         }
 
-        // Apply the jump
-        mc.thePlayer.motionY = jumpHeight;
+        return jumpHeight;
+    }
+
+    /**
+     * Modifies the player's jump height using the calculated custom value.
+     */
+    private void applyCustomJumpHeight(float customJumpHeight) {
+        mc.thePlayer.motionY = customJumpHeight;
         mc.thePlayer.isAirBorne = true;
     }
+
+	/**
+	 * Sends packets to notify the server of the jump height changes.
+	 */
+	private void sendPlayerPackets(float customJumpHeight) {
+	    // Create a new C03PacketPlayer packet to update the player's position and motion
+	    C03PacketPlayer packet = new C03PacketPlayer.C04PacketPlayerPosition(
+	        mc.thePlayer.posX,
+	        mc.thePlayer.boundingBox.minY + customJumpHeight, // Modify the Y position
+	        mc.thePlayer.posZ,
+	        mc.thePlayer.onGround
+	    );
+	
+	    // Send the packet to the server
+	    mc.thePlayer.sendQueue.addToSendQueue(packet);
+	}
 }

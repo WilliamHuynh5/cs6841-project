@@ -25,6 +25,8 @@ public class Nofall extends Module {
     public void onEvent(Event e) {
     	if (e instanceof EventUpdate && e.isPre()) {
     		if (mc.thePlayer.fallDistance > 2) {
+    			// send a packet to the server telling the server that the player is in a state where they 
+    			// should not take fall damage
     			mc.thePlayer.sendQueue.addToSendQueue(new C03PacketPlayer(true));
     		}
     	}

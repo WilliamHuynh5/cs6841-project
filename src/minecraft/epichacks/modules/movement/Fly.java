@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import epichacks.events.Event;
 import epichacks.events.listeners.EventUpdate;
 import epichacks.modules.Module;
+import net.minecraft.network.play.client.C13PacketPlayerAbilities;
 
 /**
  * The {@code Fly} class represents a hack that enables flight in the game.
@@ -38,8 +39,21 @@ public class Fly extends Module {
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
             if (e.isPre()) {
-            	mc.thePlayer.capabilities.isFlying = true;
-            }
+            	// Enable flying
+                mc.thePlayer.capabilities.allowFlying = true;
+                mc.thePlayer.capabilities.isFlying = true;
+                
+                // Create a new C13PacketPlayerAbilities packet to update abilities
+                C13PacketPlayerAbilities packet = new C13PacketPlayerAbilities();
+                packet.setAllowFlying(true);
+                packet.setFlying(true);
+                packet.setInvulnerable(mc.thePlayer.capabilities.disableDamage);
+                packet.setCreativeMode(mc.thePlayer.capabilities.isCreativeMode);
+                packet.setFlySpeed(mc.thePlayer.capabilities.getFlySpeed());
+                packet.setWalkSpeed(mc.thePlayer.capabilities.getWalkSpeed());
+                
+                // Send the packet to the server
+                mc.getNetHandler().addToSendQueue(packet);            }
         }
     }
 }

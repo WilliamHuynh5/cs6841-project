@@ -6,6 +6,7 @@ import epichacks.events.Event;
 import epichacks.events.listeners.EventUpdate;
 import epichacks.modules.Module;
 import epichacks.settings.NumberSetting;
+import net.minecraft.network.play.client.C03PacketPlayer;
 import net.minecraft.potion.Potion;
 
 /**
@@ -44,9 +45,17 @@ public class LongJump extends Module {
     @Override
     public void onEvent(Event e) {
         if (e instanceof EventUpdate) {
-            if (e.isPre() && mc.gameSettings.keyBindJump.getIsKeyPressed()) {
-                setCustomJumpDistance();
-                hasJumped = true; 
+            if (e.isPre() && mc.gameSettings.keyBindJump.getIsKeyPressed() && !hasJumped) {
+                // Calculate the custom jump distance based on the setting
+                float customJumpDistance = calculateCustomJumpDistance();
+
+                // Set the custom jump distance
+                setCustomJumpDistance(customJumpDistance);
+
+                // Send a packet to notify the server of the change
+                sendJumpDistancePacket(customJumpDistance);
+
+                hasJumped = true;
             }
             // Reset the flag when the player is on the ground
             if (mc.thePlayer.onGround) {
@@ -54,13 +63,35 @@ public class LongJump extends Module {
             }
         }
     }
-    
+
     /**
-     * Sets a custom jump distance for the player based on the distance setting.
-     * Takes into account the base jump distance and custom distance setting.
+     * Calculates the custom jump distance based on the distance setting.
      */
-    private void setCustomJumpDistance() {
-        // update the player's jump distance considering the custom distance setting and the default distance (0.02F)
-        mc.thePlayer.jumpMovementFactor = 0.02F + (float) distance.getValue() * 0.001F;
+    private float calculateCustomJumpDistance() {
+        // Calculate the jump distance considering the custom distance setting
+        return 0.02F + (float) distance.getValue() * 0.001F;
+    }
+
+    /**
+     * Sets the player's custom jump distance.
+     */
+    private void setCustomJumpDistance(float customJumpDistance) {
+        mc.thePlayer.jumpMovementFactor = customJumpDistance;
+    }
+
+    /**
+     * Sends a packet to notify the server of the custom jump distance.
+     */
+    private void sendJumpDistancePacket(float customJumpDistance) {
+        // Create a new C03PacketPlayer packet to update the player's motion
+        C03PacketPlayer packet = new C03PacketPlayer.C04PacketPlayerPosition(
+            mc.thePlayer.posX,
+            mc.thePlayer.posY,
+            mc.thePlayer.posZ,
+            mc.thePlayer.onGround
+        );
+
+        // Send the packet to the server
+        mc.thePlayer.sendQueue.addToSendQueue(packet);
     }
 }

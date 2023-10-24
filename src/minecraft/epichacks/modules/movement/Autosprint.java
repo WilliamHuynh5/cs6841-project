@@ -15,10 +15,10 @@ import epichacks.events.listeners.EventUpdate;
 public class Autosprint extends Module {
     /**
      * Constructs a new {@code Autosprint} hack with the default name, key code, and category.
-     * The default key code is {@link org.lwjgl.input.Keyboard#KEY_N}.
+     * The default key code is {@link org.lwjgl.input.Keyboard#KEY_H}.
      */
     public Autosprint() {
-        super("autosprint", Keyboard.KEY_N, Category.MOVEMENT);
+        super("autosprint", Keyboard.KEY_H, Category.MOVEMENT);
     }
 
     /**
