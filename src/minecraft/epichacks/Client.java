@@ -1,6 +1,7 @@
 package epichacks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -105,6 +106,10 @@ public class Client {
     			modules.add(pair.getValue());
     		}
     	}
+    	
+    	// Sort the modules alphabetically by name
+        modules.sort((module1, module2) -> module1.getHackName().compareTo(module2.getHackName()));
+
     	return modules;
     }
 }
