@@ -73,7 +73,7 @@ import org.apache.logging.log4j.Logger;
 public class WorldServer extends World implements IThreadListener
 {
     private static final Logger logger = LogManager.getLogger();
-    private final MinecraftServer mcServer;
+    public final MinecraftServer mcServer;
     private final EntityTracker theEntityTracker;
     private final PlayerManager thePlayerManager;
     private final Set pendingTickListEntriesHashSet = Sets.newHashSet();
