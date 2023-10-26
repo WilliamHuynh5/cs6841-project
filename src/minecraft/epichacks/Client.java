@@ -16,8 +16,8 @@ import epichacks.modules.movement.HighJump;
 import epichacks.modules.movement.LongJump;
 import epichacks.modules.player.Nofall;
 import epichacks.modules.render.Fullbright;
+import epichacks.modules.render.NoWeather;
 import epichacks.modules.render.TabGUI;
-import epichacks.modules.render.WeatherControl;
 import epichacks.ui.HUD;
 import epichacks.events.Event;
 import epichacks.events.listeners.EventKey;
@@ -71,8 +71,8 @@ public class Client {
         Module longJump = new LongJump();
         modules.put(longJump.getKey(), longJump);
         // Weather Control
-        Module weatherControl = new WeatherControl();
-        modules.put(weatherControl.getKey(), weatherControl);
+        Module noWeather = new NoWeather();
+        modules.put(noWeather.getKey(), noWeather);
     }
 
     /**
