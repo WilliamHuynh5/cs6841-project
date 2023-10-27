@@ -19,7 +19,11 @@ import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.NoWeather;
 import epichacks.modules.render.TabGUI;
 import epichacks.ui.HUD;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ChatComponentText;
+import epichacks.command.CommandManager;
 import epichacks.events.Event;
+import epichacks.events.listeners.EventChat;
 import epichacks.events.listeners.EventKey;
 
 
@@ -35,7 +39,8 @@ public class Client {
     public static ConcurrentHashMap<Integer, Module> modules = new ConcurrentHashMap<Integer, Module>();
     public static HUD hud = new HUD();
 	public static String name = "Epic Minecraft Hacks";
-	public static String version = "1.8";
+	public static String version = "1";
+	public static CommandManager commandManager = new CommandManager();
     /**
      * Initializes the client by adding a {@link epichacks.modules.movement.Fly} module to the modules map.
      */
@@ -81,6 +86,10 @@ public class Client {
      * @param e The event to be handled.
      */
     public static void onEvent(Event e) {
+    	if (e instanceof EventChat) {
+    		commandManager.handleChat((EventChat) e);
+    	}
+    	
         modules.values().stream()
                 .filter(Module::isEnabled)
                 .forEach(module -> module.onEvent(e));
@@ -111,5 +120,10 @@ public class Client {
         modules.sort((module1, module2) -> module1.getHackName().compareTo(module2.getHackName()));
 
     	return modules;
+    }
+    
+    public static void addChatMessage(String message) {
+    	message = "\2479" + name + "\2477: " + message;
+    	Minecraft.getMinecraft().thePlayer.addChatMessage(new ChatComponentText(message));
     }
 }

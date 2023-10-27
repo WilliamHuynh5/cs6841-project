@@ -133,8 +133,8 @@ public class Module {
     public int getKey() {
         return hackKeycode;
     }
-    
-    /**
+
+	/**
      * Gets the hack name.
      *
      * @return The hack name.
