@@ -2,6 +2,7 @@ package net.minecraft.client.entity;
 
 import epichacks.Client;
 import epichacks.events.EventType;
+import epichacks.events.listeners.EventChat;
 import epichacks.events.listeners.EventMotion;
 import epichacks.events.listeners.EventUpdate;
 import net.minecraft.client.Minecraft;
@@ -270,7 +271,14 @@ public class EntityPlayerSP extends AbstractClientPlayer
      */
     public void sendChatMessage(String p_71165_1_)
     {
-        this.sendQueue.addToSendQueue(new C01PacketChatMessage(p_71165_1_));
+    	EventChat event = new EventChat(p_71165_1_);
+    	
+    	Client.onEvent(event);
+    	
+    	if (event.isCancelled())
+    		return;
+    	
+        this.sendQueue.addToSendQueue(new C01PacketChatMessage(event.getMessage()));
     }
 
     /**
