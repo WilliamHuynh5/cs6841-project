@@ -15,6 +15,7 @@ import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
 import epichacks.modules.movement.LongJump;
 import epichacks.modules.player.Nofall;
+import epichacks.modules.player.Nuker;
 import epichacks.modules.render.Freecam;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.NoWeather;
@@ -82,6 +83,9 @@ public class Client {
         // Freecam
         Module freecam = new Freecam();
         modules.put(freecam.getKey(), freecam);
+        // Nuker
+        Module nuker = new Nuker();
+        modules.put(nuker.getKey(), nuker);
     }
 
     /**
