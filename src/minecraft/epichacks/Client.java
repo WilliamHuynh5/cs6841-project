@@ -15,6 +15,7 @@ import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
 import epichacks.modules.movement.LongJump;
 import epichacks.modules.player.Nofall;
+import epichacks.modules.player.Regen;
 import epichacks.modules.render.Freecam;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.NoWeather;
@@ -88,6 +89,9 @@ public class Client {
         // Xray
         Module xray = new Xray();
         modules.put(xray.getKey(), xray);
+        // Regen
+        Module regen = new Regen();
+        modules.put(regen.getKey(), regen);
     }
 
     /**
