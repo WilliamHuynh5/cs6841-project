@@ -52,52 +52,52 @@ public class Client {
      */
     public static void startup() {
     	XrayUtils.initXRayBlocks();
-    	// Fly
+    	// Fly: G
         Module flyModule = new Fly();
         modules.put(flyModule.getKey(), flyModule);
-        // Autosprint
+        // Autosprint: H
         Module autoSprint = new Autosprint();
         modules.put(autoSprint.getKey(), autoSprint);
-        // AutoWalk
+        // AutoWalk: U
         Module autoWalk = new AutoWalk();
         modules.put(autoWalk.getKey(), autoWalk);
-        // AutoSneak
+        // AutoSneak: Z
         Module autoSneak = new AutoSneak();
         modules.put(autoSneak.getKey(), autoSneak);
-        // Fullbright
+        // Fullbright: O
         Module fullBright = new Fullbright();
         modules.put(fullBright.getKey(), fullBright);
-        // Nofall
+        // Nofall: M
         Module noFall = new Nofall();
         modules.put(noFall.getKey(), noFall);
         // TabGUI
         Module tabGui = new TabGUI();
         modules.put(tabGui.getKey(), tabGui);
-        // KillAura
+        // KillAura: Y
         Module killAura = new KillAura();
         modules.put(killAura.getKey(), killAura);
-        // High Jump
+        // High Jump: J
         Module highJump = new HighJump();
         modules.put(highJump.getKey(), highJump);
-        // Long Jump
+        // Long Jump: L
         Module longJump = new LongJump();
         modules.put(longJump.getKey(), longJump);
-        // Weather Control
+        // Weather Control: K
         Module noWeather = new NoWeather();
         modules.put(noWeather.getKey(), noWeather);
-        // Freecam
+        // Freecam: F
         Module freecam = new Freecam();
         modules.put(freecam.getKey(), freecam);
-        // Nuker
+        // Nuker: N
         Module nuker = new Nuker();
         modules.put(nuker.getKey(), nuker);
-        // Xray
+        // Xray: X
         Module xray = new Xray();
         modules.put(xray.getKey(), xray);
-        // Regen
+        // Regen: R
         Module regen = new Regen();
         modules.put(regen.getKey(), regen);
-        // Auto Respawn
+        // Auto Respawn: 0
         Module autorespawn = new AutoRespawn();
         modules.put(autorespawn.getKey(), autorespawn);
     }

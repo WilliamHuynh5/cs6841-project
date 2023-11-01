@@ -8,7 +8,7 @@ import epichacks.modules.Module;
 
 public class AutoRespawn extends Module{
 	public AutoRespawn() {
-		super("AutoRespawn", Keyboard.KEY_0, Category.PLAYER);
+		super("autorespawn", Keyboard.KEY_0, Category.PLAYER);
 	}
 	
 	public void onEvent(Event e) {
