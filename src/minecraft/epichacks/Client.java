@@ -14,6 +14,7 @@ import epichacks.modules.movement.Autosprint;
 import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
 import epichacks.modules.movement.LongJump;
+import epichacks.modules.player.AutoRespawn;
 import epichacks.modules.player.Nofall;
 import epichacks.modules.player.Regen;
 import epichacks.modules.render.Freecam;
@@ -92,6 +93,9 @@ public class Client {
         // Regen
         Module regen = new Regen();
         modules.put(regen.getKey(), regen);
+        // Auto Respawn
+        Module autorespawn = new AutoRespawn();
+        modules.put(autorespawn.getKey(), autorespawn);
     }
 
     /**
