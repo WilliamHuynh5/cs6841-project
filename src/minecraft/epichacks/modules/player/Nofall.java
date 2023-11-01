@@ -15,8 +15,8 @@ import epichacks.events.listeners.EventUpdate;
  */
 public class Nofall extends Module {
     /**
-     * Constructs a new {@code Autosprint} hack with the default name, key code, and category.
-     * The default key code is {@link org.lwjgl.input.Keyboard#KEY_N}.
+     * Constructs a new {@code Nofall} hack with the default name, key code, and category.
+     * The default key code is {@link org.lwjgl.input.Keyboard#KEY_M}.
      */
     public Nofall() {
         super("no fall", Keyboard.KEY_M, Category.PLAYER);

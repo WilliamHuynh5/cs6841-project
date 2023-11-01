@@ -83,12 +83,12 @@ public class Freecam extends Module {
         // Set the player's flying status to the original state
         mc.thePlayer.capabilities.isFlying = originalPlayerFlying;
 
+        // teleport the player back to the initial position
+        mc.thePlayer.setPositionAndRotation(originalPlayerX, originalPlayerY, originalPlayerZ, originalPlayerYaw, originalPlayerPitch);
+        
         // Restore the original game mode
         mc.thePlayer.sendChatMessage("/gamemode " + originalGameMode.getName());
         mc.getNetHandler().addToSendQueue(new C18PacketSpectate());
-
-        // teleport the player back to the initial position
-        mc.thePlayer.setPositionAndRotation(originalPlayerX, originalPlayerY, originalPlayerZ, originalPlayerYaw, originalPlayerPitch);
 
         // Remove the fake player
         mc.theWorld.removeEntityFromWorld(fakePlayer.getEntityId());
