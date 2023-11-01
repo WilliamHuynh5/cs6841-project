@@ -15,6 +15,7 @@ import epichacks.modules.movement.Fly;
 import epichacks.modules.movement.HighJump;
 import epichacks.modules.movement.LongJump;
 import epichacks.modules.player.Nofall;
+import epichacks.modules.render.Freecam;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.NoWeather;
 import epichacks.modules.render.TabGUI;
@@ -78,6 +79,9 @@ public class Client {
         // Weather Control
         Module noWeather = new NoWeather();
         modules.put(noWeather.getKey(), noWeather);
+        // Freecam
+        Module freecam = new Freecam();
+        modules.put(freecam.getKey(), freecam);
     }
 
     /**
