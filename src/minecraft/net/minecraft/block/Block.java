@@ -3,6 +3,11 @@ package net.minecraft.block;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import org.lwjgl.input.Keyboard;
+
+import epichacks.Client;
+import epichacks.util.XrayUtils;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -436,6 +441,10 @@ public class Block
 
     public int getMixedBrightnessForBlock(IBlockAccess worldIn, BlockPos pos)
     {
+    	if (Client.modules.get(Keyboard.KEY_X).isEnabled()) {
+    		return Integer.MAX_VALUE; 
+    	}
+    	
         Block var3 = worldIn.getBlockState(pos).getBlock();
         int var4 = worldIn.getCombinedLight(pos, var3.getLightValue());
 
@@ -453,6 +462,9 @@ public class Block
 
     public boolean shouldSideBeRendered(IBlockAccess worldIn, BlockPos pos, EnumFacing side)
     {
+    	if (Client.modules.get(Keyboard.KEY_X).isEnabled()) {
+    		return XrayUtils.isXrayBlock(this);
+    	}
         return side == EnumFacing.DOWN && this.minY > 0.0D ? true : (side == EnumFacing.UP && this.maxY < 1.0D ? true : (side == EnumFacing.NORTH && this.minZ > 0.0D ? true : (side == EnumFacing.SOUTH && this.maxZ < 1.0D ? true : (side == EnumFacing.WEST && this.minX > 0.0D ? true : (side == EnumFacing.EAST && this.maxX < 1.0D ? true : !worldIn.getBlockState(pos).getBlock().isOpaqueCube())))));
     }
 
