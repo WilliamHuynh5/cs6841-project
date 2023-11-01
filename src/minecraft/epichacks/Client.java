@@ -19,7 +19,9 @@ import epichacks.modules.render.Freecam;
 import epichacks.modules.render.Fullbright;
 import epichacks.modules.render.NoWeather;
 import epichacks.modules.render.TabGUI;
+import epichacks.modules.render.Xray;
 import epichacks.ui.HUD;
+import epichacks.util.XrayUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 import epichacks.command.CommandManager;
@@ -46,6 +48,7 @@ public class Client {
      * Initializes the client by adding a {@link epichacks.modules.movement.Fly} module to the modules map.
      */
     public static void startup() {
+    	XrayUtils.initXRayBlocks();
     	// Fly
         Module flyModule = new Fly();
         modules.put(flyModule.getKey(), flyModule);
@@ -82,6 +85,9 @@ public class Client {
         // Freecam
         Module freecam = new Freecam();
         modules.put(freecam.getKey(), freecam);
+        // Xray
+        Module xray = new Xray();
+        modules.put(xray.getKey(), xray);
     }
 
     /**
