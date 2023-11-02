@@ -18,7 +18,7 @@ public class Autosprint extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_H}.
      */
     public Autosprint() {
-        super("autosprint", Keyboard.KEY_H, Category.MOVEMENT);
+        super("autoSprint", Keyboard.KEY_H, Category.MOVEMENT);
     }
 
     /**

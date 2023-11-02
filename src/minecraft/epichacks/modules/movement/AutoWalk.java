@@ -23,7 +23,7 @@ public class AutoWalk extends Module {
      * @param modManager 
      */
     public AutoWalk() {
-        super("autowalk", Keyboard.KEY_U, Category.MOVEMENT);
+        super("autoWalk", Keyboard.KEY_U, Category.MOVEMENT);
     }
 
     /**

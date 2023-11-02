@@ -19,7 +19,7 @@ public class Nofall extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_M}.
      */
     public Nofall() {
-        super("no fall", Keyboard.KEY_M, Category.PLAYER);
+        super("noFall", Keyboard.KEY_M, Category.PLAYER);
     }
     
     public void onEvent(Event e) {

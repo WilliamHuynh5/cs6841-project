@@ -38,7 +38,7 @@ public class KillAura extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_X}.
      */
     public KillAura() {
-        super("killaura", Keyboard.KEY_Y, Category.COMBAT);
+        super("killAura", Keyboard.KEY_Y, Category.COMBAT);
         this.addSettings(range, aps, noSwing);
     }
 

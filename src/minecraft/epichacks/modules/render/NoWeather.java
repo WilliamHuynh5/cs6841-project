@@ -38,7 +38,7 @@ public class NoWeather extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_K}.
      */
     public NoWeather() {
-        super("no-weather", Keyboard.KEY_K, Category.RENDER);
+        super("noWeather", Keyboard.KEY_K, Category.RENDER);
         this.addSettings(noRain, changeWorldTime, time);
     }
     
