@@ -8,7 +8,7 @@ import net.minecraft.network.play.client.C03PacketPlayer;
 
 public class Regen extends Module{
 	public Regen() {
-		super("regen", Keyboard.KEY_R, Category.PLAYER);
+		super("autoregen", Keyboard.KEY_R, Category.PLAYER);
 	}
 	public void onEvent(Event e) {
 			if(e.isPre()) {
