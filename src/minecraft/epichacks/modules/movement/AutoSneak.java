@@ -18,7 +18,7 @@ public class AutoSneak extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_Z}.
      */
     public AutoSneak() {
-        super("autosneak", Keyboard.KEY_Z, Category.MOVEMENT);
+        super("autoSneak", Keyboard.KEY_Z, Category.MOVEMENT);
     }
 
     /**

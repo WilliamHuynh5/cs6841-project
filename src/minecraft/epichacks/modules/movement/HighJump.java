@@ -23,7 +23,7 @@ public class HighJump extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_J}.
      */
     public HighJump() {
-        super("high jump", Keyboard.KEY_J, Category.MOVEMENT);
+        super("highJump", Keyboard.KEY_J, Category.MOVEMENT);
         this.addSettings(height);
     }
 

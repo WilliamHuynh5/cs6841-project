@@ -33,7 +33,7 @@ public class Freecam extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_F}.
      */
     public Freecam() {
-        super("freecam", Keyboard.KEY_F, Category.RENDER);
+        super("freeCam", Keyboard.KEY_F, Category.RENDER);
     }
 
     /**

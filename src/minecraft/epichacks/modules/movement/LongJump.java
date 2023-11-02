@@ -23,7 +23,7 @@ public class LongJump extends Module {
      * The default key code is {@link org.lwjgl.input.Keyboard#KEY_L}.
      */
     public LongJump() {
-        super("long jump", Keyboard.KEY_L, Category.MOVEMENT);
+        super("longJump", Keyboard.KEY_L, Category.MOVEMENT);
         this.addSettings(distance);
     }
 
