@@ -47,10 +47,6 @@ public class Fly extends Module {
                 C13PacketPlayerAbilities packet = new C13PacketPlayerAbilities();
                 packet.setAllowFlying(true);
                 packet.setFlying(true);
-                packet.setInvulnerable(mc.thePlayer.capabilities.disableDamage);
-                packet.setCreativeMode(mc.thePlayer.capabilities.isCreativeMode);
-                packet.setFlySpeed(mc.thePlayer.capabilities.getFlySpeed());
-                packet.setWalkSpeed(mc.thePlayer.capabilities.getWalkSpeed());
                 
                 // Send the packet to the server
                 mc.getNetHandler().addToSendQueue(packet);            }
